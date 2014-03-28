@@ -5,7 +5,7 @@ $.fn.variantMultiAutocomplete = function() {
     minimumInputLength: 1,
     multiple: true,
     initSelection: function(element, callback) {
-      $.get(Spree.routes.variants_search, { ids: element.val().split(',') }, function(data) { 
+      $.get(Spree.routes.variants_search, { ids: element.val().split(',') }, function(data) {
         callback(data['variants'])
       })
     },
@@ -13,7 +13,7 @@ $.fn.variantMultiAutocomplete = function() {
       url: Spree.routes.variants_search,
       datatype: 'json',
       data: function(term, page) {
-        return { 
+        return {
           q: {
             "product_name_or_sku_cont": term
           }
@@ -24,10 +24,10 @@ $.fn.variantMultiAutocomplete = function() {
       }
     },
     formatResult: function(variant) {
-      return variant.name + (variant.options_text ? ' - ' + variant.options_text : '');
+      return variant.name + ' - ' + variant.sku.replace(/\_/g," ");
     },
     formatSelection: function(variant) {
-      return variant.name + (variant.options_text ? ' - ' + variant.options_text : '');
+      return variant.name + ' - ' + variant.sku.replace(/\_/g," ");
     }
   });
 }
